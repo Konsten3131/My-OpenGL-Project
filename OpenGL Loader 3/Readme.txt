@@ -1,1 +1,0 @@
-This is first attempt to make my first OpenGl framework to work on multiple platforms
