@@ -24,8 +24,7 @@ endif (${ANDROID_PLATFORM_LEVEL} LESS 11)
 add_library(nativeBridge
              SHARED
              game-lib.cpp
-             glwrapper.h
-              game.cpp)
+             game.cpp)
 
 # Include libraries needed for gles3jni lib
 target_link_libraries(nativeBridge
