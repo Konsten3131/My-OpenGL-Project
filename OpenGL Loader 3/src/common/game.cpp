@@ -1,5 +1,5 @@
 #include "game.h"
-#include "glwrapper.h"
+#include "glwrapperAndroid.h"
 
 void on_surface_created() {
 	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
