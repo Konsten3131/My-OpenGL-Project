@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+//def platformVersion = 18    //openGLES 3 min Version
+def platformVersion = 11 //openGLES 2 min version
+
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -10,9 +14,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        sourceSets.main {
+            jniLibs.srcDir 'src/main/cpp'
+        }
+        ndk {
+            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+        }
         externalNativeBuild {
+            //ndkbuild{
+            //    path "Android.mk"
+            //}
             cmake {
-                cppFlags "-frtti -fexceptions"
+                // pass command line arguments to cmake: our CMakeLists.txt needs it
+                // to load the right openGL lib (gles2 vs. gles3 )
+                // other ndk flags could also be configured there [cppFlags, cFlags...]
+                arguments "-DANDROID_PLATFORM_LEVEL=${platformVersion}",
+                        '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=gnustl_static'
             }
         }
     }
@@ -24,9 +41,10 @@ android {
     }
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path 'src/main/cpp/CMakeLists.txt'
         }
     }
+
 }
 
 dependencies {
