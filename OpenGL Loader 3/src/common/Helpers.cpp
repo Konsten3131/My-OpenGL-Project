@@ -1,5 +1,8 @@
 #include "CommonHeader.h"
+
 #include "ResourceUtils.h"
+
+
 
 void LogError(char* string, ...)
 {

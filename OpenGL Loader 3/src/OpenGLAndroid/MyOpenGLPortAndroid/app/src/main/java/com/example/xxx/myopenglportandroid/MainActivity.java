@@ -3,6 +3,7 @@ package com.example.xxx.myopenglportandroid;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
+import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Build;
@@ -23,7 +24,47 @@ public class MainActivity extends AppCompatActivity {
 
     // Example of a call to a native method
     TextView tv = (TextView) findViewById(R.id.sample_text);
+               AssetManager mngr=getAssets();
 
+        /*String [] list;
+        try {
+            list = mngr.list("");
+            if (list.length > 0) {
+                // This is a folder
+                for (String file : list) {
+                    Toast.makeText(this, list.toString(),
+                              Toast.LENGTH_LONG).show();
+                }
+            }
+        }catch (Exception e ) {
+
+        }*/
+
+
+       //descript and copy files to cache directory
+        String filepath = FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadFront.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadRight.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadTop.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadPerspective.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "invasteranko_d.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "podium.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "ster2.obj");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture2d.vert");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture2d.frag");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture3d.vert");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture3d.frag");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "color.vert");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "color.frag");
+
+
+
+
+
+        setAppPath(getCacheDir().getPath());
+
+
+
+        // InputStream is = getAssets().open("path/file.ext");
         //int a = myCustomFunc();
       //  Integer.toString(a)
        // tv.setText( Integer.toString(stringFromJNI()));
@@ -86,12 +127,16 @@ public class MainActivity extends AppCompatActivity {
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
             //glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
            on_surface_created();
+
+            int width = getWindowManager().getDefaultDisplay().getWidth();
+            int height = getWindowManager().getDefaultDisplay().getHeight();
+            on_surface_changed(width, height);
         }
 
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
             // No-op
-           on_surface_created();
+            on_surface_changed(width, height);
         }
 
         @Override
@@ -131,21 +176,14 @@ public class MainActivity extends AppCompatActivity {
     public static native void on_surface_changed(int width, int height);
 
     public static native void on_draw_frame();
+
+    public static native void setAppPath(String path);
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("nativeBridge");
-        //System.loadLibrary("game-lib");
+
     }
 }
 
-//class GameLibJNIWrapper {
- //   static {
-  //      System.loadLibrary("nativeBridge");
-   // }
 
-   // public static native void on_surface_created();
 
-   // public static native void on_surface_changed(int width, int height);
-
-    //public static native void on_draw_frame();
-//}

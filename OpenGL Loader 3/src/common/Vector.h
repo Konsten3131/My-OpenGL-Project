@@ -1,7 +1,10 @@
 #ifndef __Vector_H__
 #define __Vector_H__
 
-bool fequal(float a, float b);
+inline bool fequal(float a, float b)
+{
+	return a == b;
+}
 
 class Vector2
 {

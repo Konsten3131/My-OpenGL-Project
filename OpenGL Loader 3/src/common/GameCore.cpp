@@ -1,5 +1,8 @@
 ﻿#include "CommonHeader.h"
+
 #include "ResourceUtils.h"
+#include <cstdio>
+
 
 GameCore* g_pGameCore = 0;
 
@@ -144,17 +147,23 @@ void GameCore::OneTimeInit()
         m_pShaderColor->Init( "color", "color" );
     }
 
-    const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");
+   const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");//"storage/sdcard/podium.png";
     const char* pngPath2 = ResourceUtils::getPathForSpecifiedResource("QuadFront", "png");
-    const char* pngPath3 = ResourceUtils::getPathForSpecifiedResource("QuadRight", "png");
+   const char* pngPath3 = ResourceUtils::getPathForSpecifiedResource("QuadRight", "png");
     const char* pngPath4 = ResourceUtils::getPathForSpecifiedResource("QuadTop", "png");
     const char* pngPath5 = ResourceUtils::getPathForSpecifiedResource("QuadPerspective", "png");
+     const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("invasteranko_d", "png");
     
    // const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("uvtemplate", "png");
-    const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("invasteranko_d", "png");
      //const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("sonic2", "png");
    // const char* pngPath7 = ResourceUtils::getPathForSpecifiedResource("sonicShoes", "png");
-    
+   //// const char* pngPath = "/data/data/com.example.xxx.myopenglportandroid/cache/podium.png";
+   //// const char* pngPath2 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadFront.png";
+   //// const char* pngPath3 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadRight.png";
+   //// const char* pngPath4 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadTop.png";
+   //// const char* pngPath5 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadPerspective.png";
+   //// const char* pngPath6 = "/data/data/com.example.xxx.myopenglportandroid/cache/invasteranko_d.png";
+
     // load our textures
     m_TextureGround = LoadTexture( pngPath );
     m_TextureBGFront = LoadTexture( pngPath2 );
@@ -401,8 +410,7 @@ void GameCore::OnDrawFrame()
     glClearDepthf( 1.0f );
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glViewport( 0, 0, m_WindowWidth, m_WindowHeight );
-   
-    
+
     switch(m_ViewNumber)
     {
         case 0:

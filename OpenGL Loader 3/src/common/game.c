@@ -5,7 +5,7 @@ void on_surface_created() {
 	//glClearColor(1.0f, 1.0f, 0.0f, 0.0f);
 }
 
-void on_surface_changed() {
+void on_surface_changed(int width, int height) {
 	// No-op
 }
 

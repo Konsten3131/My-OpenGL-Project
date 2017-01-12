@@ -24,7 +24,13 @@ endif (${ANDROID_PLATFORM_LEVEL} LESS 11)
 add_library(nativeBridge
              SHARED
              game-lib.cpp
-             game.cpp)
+             game.cpp
+             GameCore.cpp
+             LodePNG/lodepng.cpp
+             Matrix.cpp
+             Helpers.cpp
+             ShaderBase.cpp
+	     ResourceUtils.cpp)
 
 # Include libraries needed for gles3jni lib
 target_link_libraries(nativeBridge

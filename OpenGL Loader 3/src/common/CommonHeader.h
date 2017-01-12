@@ -20,6 +20,10 @@
 
 #include "GameCore.h"
 
+#ifdef __ANDROID__
+#include "glwrapperAndroid.h"
+#elif __APPLE__
 #include "glwrapper.h"
+#endif
 
 #endif //__CommonHeader_H__
