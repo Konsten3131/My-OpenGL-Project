@@ -147,22 +147,16 @@ void GameCore::OneTimeInit()
         m_pShaderColor->Init( "color", "color" );
     }
 
-   const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");//"storage/sdcard/podium.png";
+   const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");
     const char* pngPath2 = ResourceUtils::getPathForSpecifiedResource("QuadFront", "png");
    const char* pngPath3 = ResourceUtils::getPathForSpecifiedResource("QuadRight", "png");
     const char* pngPath4 = ResourceUtils::getPathForSpecifiedResource("QuadTop", "png");
     const char* pngPath5 = ResourceUtils::getPathForSpecifiedResource("QuadPerspective", "png");
-     const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("invasteranko_d", "png");
+    const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("invasteranko_d", "png");
     
-   // const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("uvtemplate", "png");
+    //const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("uvtemplate", "png");
      //const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("sonic2", "png");
    // const char* pngPath7 = ResourceUtils::getPathForSpecifiedResource("sonicShoes", "png");
-   //// const char* pngPath = "/data/data/com.example.xxx.myopenglportandroid/cache/podium.png";
-   //// const char* pngPath2 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadFront.png";
-   //// const char* pngPath3 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadRight.png";
-   //// const char* pngPath4 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadTop.png";
-   //// const char* pngPath5 = "/data/data/com.example.xxx.myopenglportandroid/cache/QuadPerspective.png";
-   //// const char* pngPath6 = "/data/data/com.example.xxx.myopenglportandroid/cache/invasteranko_d.png";
 
     // load our textures
     m_TextureGround = LoadTexture( pngPath );
@@ -411,6 +405,7 @@ void GameCore::OnDrawFrame()
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glViewport( 0, 0, m_WindowWidth, m_WindowHeight );
 
+
     switch(m_ViewNumber)
     {
         case 0:
@@ -480,8 +475,6 @@ void GameCore::OnDrawFrame()
             break;
         }
     }
-
-    
 }
 
 void GameCore::DrawScene(Matrix* pCameraMatrix)
@@ -491,6 +484,8 @@ void GameCore::DrawScene(Matrix* pCameraMatrix)
     // draw the ground
     {
         mvp.SetIdentity();
+        mvp.SetPosition(0,0,0);
+        mvp.Scale( 1, 1, 1 );
         mvp.Multiply( pCameraMatrix );
         mvp.Multiply( &m_MatrixPerspective );
 
@@ -499,37 +494,37 @@ void GameCore::DrawScene(Matrix* pCameraMatrix)
 
     // draw user controlled pyramid.
     {
-        mvp.SetIdentity();
-        mvp.TranslatePostRotation( m_ObjectPos.x, m_ObjectPos.y, m_ObjectPos.z );
-        mvp.Multiply( pCameraMatrix );
-        mvp.Multiply( &m_MatrixPerspective );
+       // mvp.SetIdentity();
+       // mvp.TranslatePostRotation( m_ObjectPos.x, m_ObjectPos.y, m_ObjectPos.z );
+       // mvp.Multiply( pCameraMatrix );
+       // mvp.Multiply( &m_MatrixPerspective );
 
        // DrawPyramid( &mvp );
     }
 
     // draw small pyramid rotating around zero on z plane
     {
-        mvp.SetIdentity();
-        mvp.Scale( 0.5f, 0.5f, 0.5f );
-        mvp.TranslatePostRotation( 0, 0, -1 );
-        mvp.Rotate( -(float)m_TimeInGame*50, 0, 1, 0 );
-        mvp.Multiply( pCameraMatrix );
-        mvp.Multiply( &m_MatrixPerspective );
+       // mvp.SetIdentity();
+       // mvp.Scale( 0.5f, 0.5f, 0.5f );
+       // mvp.TranslatePostRotation( 0, 0, -1 );
+       // mvp.Rotate( -(float)m_TimeInGame*50, 0, 1, 0 );
+       // mvp.Multiply( pCameraMatrix );
+       // mvp.Multiply( &m_MatrixPerspective );
 
       //  DrawPyramid( &mvp );
     }
 
     // draw even smaller pyramid rotating around previous pyramid on z plane
     {
-        
+
         mvp.SetIdentity();
-        //mvp.Rotate( -(float)m_TimeInGame*500, 0, 1, 0 );
-       // mvp.Scale( 0.007, 0.007, 0.007 );//ivan
+       // mvp.Rotate( -(float)m_TimeInGame*500, 0, 1, 0 );
+        //mvp.Scale( 1.0f, 1.0f, 1.0f );//ivan
          mvp.Scale( m_ModelScale, m_ModelScale, m_ModelScale);//ivan
         mvp.SetPosition(0,0,0);
        // mvp.TranslatePostRotation( 0, 0, -0.2f );
        // mvp.Rotate( (float)m_TimeInGame*20, 0, 1, 0 );
-        
+
         mvp.Multiply( pCameraMatrix );
         mvp.Multiply( &m_MatrixPerspective );
 
@@ -538,11 +533,11 @@ void GameCore::DrawScene(Matrix* pCameraMatrix)
 
     // draw upside down pyramid bobbing up and down
     {
-        mvp.SetIdentity();
-        mvp.Rotate( (float)180, 1, 0, 0 );
-        mvp.TranslatePostRotation( 0.5f, sin(m_TimeInGame) + 1, 0 );
-        mvp.Multiply( pCameraMatrix );
-        mvp.Multiply( &m_MatrixPerspective );
+       // mvp.SetIdentity();
+        //mvp.Rotate( (float)180, 1, 0, 0 );
+       // mvp.TranslatePostRotation( 0.5f, sin(m_TimeInGame) + 1, 0 );
+       // mvp.Multiply( pCameraMatrix );
+       // mvp.Multiply( &m_MatrixPerspective );
 
        // DrawPyramid( &mvp );
     }
@@ -675,9 +670,9 @@ void GameCore::DrawPyramid(Matrix* pMVP)
      glUseProgram( m_pShaderTexture3D->m_Program );
     
     // Get our shader attribute and uniform handles
-    GLint aPos = glGetAttribLocation( m_pShaderColor->m_Program, "a_Position" );
+    GLint aPos = glGetAttribLocation( m_pShaderTexture3D->m_Program, "a_Position" );
    // GLint aColor = glGetAttribLocation( m_pShaderColor->m_Program, "a_Color" );
-    GLint uMatMVP = glGetUniformLocation( m_pShaderColor->m_Program, "u_MatMVP" );
+    GLint uMatMVP = glGetUniformLocation( m_pShaderTexture3D->m_Program, "u_MatMVP" );
     
    
     GLint aUV = glGetAttribLocation( m_pShaderTexture3D->m_Program, "a_UV" );

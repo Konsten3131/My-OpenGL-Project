@@ -1,5 +1,6 @@
 package com.example.xxx.myopenglportandroid;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
@@ -8,19 +9,21 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity{ //AppCompatActivity {  //If extended from AppCompatActivity than we get bar with app name on top of screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,//setting full screen of app
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     // Example of a call to a native method
     TextView tv = (TextView) findViewById(R.id.sample_text);
@@ -55,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         FileMgr.copyAsset(this, getCacheDir().getPath(), "texture3d.frag");
         FileMgr.copyAsset(this, getCacheDir().getPath(), "color.vert");
         FileMgr.copyAsset(this, getCacheDir().getPath(), "color.frag");
+
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.png");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.obj");
+
+
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "cube.obj");
+        FileMgr.copyAsset(this, getCacheDir().getPath(), "uvtemplate.png");
+
 
 
 
