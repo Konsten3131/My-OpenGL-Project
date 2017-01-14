@@ -59,12 +59,12 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
         FileMgr.copyAsset(this, getCacheDir().getPath(), "color.vert");
         FileMgr.copyAsset(this, getCacheDir().getPath(), "color.frag");
 
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.obj");
+       // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.png");
+       // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.obj");
 
 
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "cube.obj");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "uvtemplate.png");
+       // FileMgr.copyAsset(this, getCacheDir().getPath(), "cube.obj");
+        //FileMgr.copyAsset(this, getCacheDir().getPath(), "uvtemplate.png");
 
 
 
@@ -136,24 +136,18 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
     {
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            //glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
            on_surface_created();
-
-            int width = getWindowManager().getDefaultDisplay().getWidth();
-            int height = getWindowManager().getDefaultDisplay().getHeight();
-            on_surface_changed(width, height);
         }
 
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
-            // No-op
+
             on_surface_changed(width, height);
         }
 
         @Override
         public void onDrawFrame(GL10 gl) {
 
-            //glClear(GL_COLOR_BUFFER_BIT);
             on_draw_frame();
         }
     }

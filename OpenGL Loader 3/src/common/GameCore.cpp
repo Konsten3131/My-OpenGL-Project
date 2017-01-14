@@ -143,8 +143,8 @@ void GameCore::OneTimeInit()
         m_pShaderTexture3D = new ShaderBase();
         m_pShaderTexture3D->Init( "texture3d", "texture3d" );
 
-        m_pShaderColor = new ShaderBase();
-        m_pShaderColor->Init( "color", "color" );
+       // m_pShaderColor = new ShaderBase();
+        //m_pShaderColor->Init( "color", "color" );
     }
 
    const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");
@@ -172,7 +172,7 @@ void GameCore::OneTimeInit()
     GenerateGroundVerts();
     GenerateQuad2DVerts();
     
-    //const char* pngPath0 = ResourceUtils::getPathForSpecifiedResource("cube", "obj");
+   // const char* pngPath0 = ResourceUtils::getPathForSpecifiedResource("cube", "obj");
     const char* pngPath0 = ResourceUtils::getPathForSpecifiedResource("ster2", "obj");
    // const char* pngPath0 = ResourceUtils::getPathForSpecifiedResource("kostasBox", "obj");
      //const char* pngPath0 = ResourceUtils::getPathForSpecifiedResource("sonic2", "obj");
@@ -389,11 +389,12 @@ void GameCore::Tick(double TimePassed)
 
 void GameCore::OnSurfaceChanged(unsigned int width, unsigned int height)
 {
-    glViewport( 0, 0, width, height );
+    //glViewport( 0, 0, width, height );
 
     m_WindowWidth = width;
     m_WindowHeight = height;
-    m_MatrixPerspective.SetPerspective( 60, (float)width/height, 1, 100 );
+    float aspect = (float)width/height;
+    m_MatrixPerspective.SetPerspective( 60, aspect, 1, 100 );
    // m_MatrixPerspective.showDebugMatrixInfo();
 }
 
@@ -626,6 +627,10 @@ void GameCore::DrawGround(Matrix* pMVP)
 
     glDisableVertexAttribArray( aPos );
     glDisableVertexAttribArray( aUV );
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
+
 }
 
 void GameCore::DrawPyramid(Matrix* pMVP)
@@ -727,14 +732,18 @@ void GameCore::DrawPyramid(Matrix* pMVP)
     glDrawArrays(GL_TRIANGLES, 0, m_Vertices.size());
     
     
-   // glCullFace(GL_FRONT);
+    //glCullFace(GL_FRONT);
    // glEnable( GL_CULL_FACE );
    
    // glCullFace(GL_BACK);
    // glEnable( GL_CULL_FACE );
-    
+
     glDisableVertexAttribArray( aPos );
     glDisableVertexAttribArray( aUV );
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
 }
 
 void GameCore::SwitchView()

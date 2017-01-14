@@ -10,7 +10,6 @@ void on_surface_created() {
 }
 
 void on_surface_changed(int width, int height) {
-	 //No-op
 	pGameCore->OnSurfaceChanged(width,height);
 }
 
