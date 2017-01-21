@@ -43,21 +43,24 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
 
         }*/
 
-
        //descript and copy files to cache directory
-        String filepath = FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadFront.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadRight.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadTop.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "QuadPerspective.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "invasteranko_d.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "podium.png");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "ster2.obj");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture2d.vert");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture2d.frag");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture3d.vert");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "texture3d.frag");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "color.vert");
-        FileMgr.copyAsset(this, getCacheDir().getPath(), "color.frag");
+
+       String filepath = FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadFront.png");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadRight.png");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadTop.png");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadPerspective.png");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "invasteranko_d.png");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "podium.png");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "ster2.obj");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture2d.vert");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture2d.frag");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture3d.vert");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture3d.frag");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "color.vert");
+       FileMgr.copyAsset(this, getFilesDir().getPath(), "color.frag");
+
+
+
 
        // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.png");
        // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.obj");
@@ -71,7 +74,7 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
 
 
 
-        setAppPath(getCacheDir().getPath());
+        setAppPath(getFilesDir().getPath());
 
 
 
@@ -101,6 +104,7 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
 
             glSurfaceView.setEGLContextClientVersion(2);
             glSurfaceView.setRenderer(new RendererWrapper());
+            glSurfaceView.setPreserveEGLContextOnPause(true); //prevents from recreating context if app loses focus
             rendererSet = true;
             setContentView(glSurfaceView);
         } else
