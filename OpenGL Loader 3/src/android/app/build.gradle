@@ -41,12 +41,11 @@ android {
     }
     externalNativeBuild {
         cmake {
-            //path 'src/main/cpp/CMakeLists.txt'
-            path '../../../common/CMakeLists.txt'
+            path '../../common/CMakeLists.txt'
         }
     }
 
-    sourceSets { main { assets.srcDirs = ['src/main/assets', '../../../common/assets'] } }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', '../../common/assets'] } }
 }
 
 dependencies {
