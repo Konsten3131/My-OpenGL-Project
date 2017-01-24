@@ -147,9 +147,9 @@ void GameCore::OneTimeInit()
         //m_pShaderColor->Init( "color", "color" );
     }
 
-   const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");
+    const char* pngPath = ResourceUtils::getPathForSpecifiedResource("podium", "png");
     const char* pngPath2 = ResourceUtils::getPathForSpecifiedResource("QuadFront", "png");
-   const char* pngPath3 = ResourceUtils::getPathForSpecifiedResource("QuadRight", "png");
+    const char* pngPath3 = ResourceUtils::getPathForSpecifiedResource("QuadRight", "png");
     const char* pngPath4 = ResourceUtils::getPathForSpecifiedResource("QuadTop", "png");
     const char* pngPath5 = ResourceUtils::getPathForSpecifiedResource("QuadPerspective", "png");
     const char* pngPath6 = ResourceUtils::getPathForSpecifiedResource("invasteranko_d", "png");

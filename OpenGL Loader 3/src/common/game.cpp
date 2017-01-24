@@ -18,4 +18,32 @@ void on_draw_frame() {
 	pGameCore->OnDrawFrame();
 }
 
+void rotateCameraAroundAxis(int distance){
+
+	pGameCore->RotateCameraAroundAxis(distance);
+}
+
+void setAxisAngleX(float angle){
+
+	pGameCore->m_xAxisAngle = angle;
+
+}
+
+void setAxisAngleY(float angle){
+
+	pGameCore->m_yAxisAngle = angle;
+
+}
+
+ float getAxisAngleX() {
+
+	 return pGameCore->m_xAxisAngle;
+
+ }
+
+float getAxisAngleY() {
+
+	return pGameCore->m_yAxisAngle;
+
+}
 

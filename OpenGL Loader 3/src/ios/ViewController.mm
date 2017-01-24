@@ -127,6 +127,7 @@ float prevDistBetweenTwoPoints;
             touchBeganPoint = location;
         float x = location.x - touchBeganPoint.x;
         float y = location.y - touchBeganPoint.y;
+       // NSLog(@"My location x is %f \n",location.x);
         
         float distanceX = sqrt(x*x);
         float distanceY = sqrt(y*y);

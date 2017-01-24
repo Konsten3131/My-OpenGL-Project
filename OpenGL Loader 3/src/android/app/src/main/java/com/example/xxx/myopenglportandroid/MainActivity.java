@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
-import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,63 +28,13 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
 
     // Example of a call to a native method
     TextView tv = (TextView) findViewById(R.id.sample_text);
-               AssetManager mngr=getAssets();
-
-        /*String [] list;
-        try {
-            list = mngr.list("");
-            if (list.length > 0) {
-                // This is a folder
-                for (String file : list) {
-                    Toast.makeText(this, list.toString(),
-                              Toast.LENGTH_LONG).show();
-                }
-            }
-        }catch (Exception e ) {
-
-        }*/
-
-       //descript and copy files to cache directory
-
-       String filepath = FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadFront.png");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadRight.png");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadTop.png");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadPerspective.png");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "invasteranko_d.png");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "podium.png");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "ster2.obj");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture2d.vert");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture2d.frag");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture3d.vert");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "texture3d.frag");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "color.vert");
-       FileMgr.copyAsset(this, getFilesDir().getPath(), "color.frag");
 
 
-
-
-       // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.png");
-       // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.obj");
-
-
-       // FileMgr.copyAsset(this, getCacheDir().getPath(), "cube.obj");
-        //FileMgr.copyAsset(this, getCacheDir().getPath(), "uvtemplate.png");
-
-
-
-
+        copyAssets();
 
 
         setAppPath(getFilesDir().getPath());
 
-
-
-        // InputStream is = getAssets().open("path/file.ext");
-        //int a = myCustomFunc();
-      //  Integer.toString(a)
-       // tv.setText( Integer.toString(stringFromJNI()));
-       // Toast.makeText(this, Integer.toString(a) +" " +Integer.toString(stringFromJNI()),
-              //  Toast.LENGTH_LONG).show();
 
         //////start opengl related code
         ActivityManager activityManager
@@ -136,6 +87,79 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
         }
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        // MotionEvent reports input details from the touch screen
+        // and other input controls. In this case, you are only
+        // interested in events where the touch position changed.
+
+        int x = (int)e.getX();
+        int y = (int)e.getY();
+
+        switch (e.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+
+
+
+                int difx = x - touchBeginX;
+                int dify = y - touchBeginY;
+               // Log.d("difx", "value X: " + difx);
+               // Log.d("dify", "value Y: " + dify);
+
+                double distanceX = Math.sqrt(difx*difx);
+                double distanceY = Math.sqrt(dify*dify);
+
+                ////////////this code is fore view where we rotate just around y axis//////////
+                if(x >= 0)
+                    rotateCameraAroundAxis((int)-distanceX);
+                else
+                    rotateCameraAroundAxis((int)distanceX);
+                ///////////////////////////////////////////////////////////////////////////////
+
+                distanceX /= 250.0f; //deviding by 250 simply to slowdown user input rotation
+                distanceY /= 250.0f;
+
+                float angleX = getAngleX();
+                float angleY = getAngleY();
+
+                if(difx >= 0)
+                    setAngleY(angleY += distanceX);
+                    //when we slide horizontally we expect object to rotate arount its x axis
+                else
+                    setAngleY(angleY -= distanceX);
+
+                if(dify >= 0)
+                    setAngleX(angleX += distanceY);
+                else
+                    setAngleX(angleX -= distanceY);
+
+                touchBeginX = x;
+                touchBeginY = y;
+
+                break;
+            case MotionEvent.ACTION_DOWN:
+
+                 touchBeginX = x;
+                 touchBeginY = y;
+                break;
+
+            case MotionEvent.ACTION_UP:
+                touchBeginX = x;
+                touchBeginY = y;
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+
+                Log.d("difx", "value X0: " + e.getX(0));
+                Log.d("dify", "value X1: " + e.getX(1));
+                break;
+
+        }
+
+
+        return true;
+    }
+
     public class RendererWrapper implements Renderer
     {
         @Override
@@ -165,6 +189,30 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
                 || Build.MODEL.contains("Android SDK built for x86"));
     }
 
+   private void copyAssets() {
+
+        //descript and copy files to cache directory
+        String filepath = FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadFront.png");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadRight.png");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadTop.png");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "QuadPerspective.png");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "invasteranko_d.png");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "podium.png");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "ster2.obj");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "texture2d.vert");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "texture2d.frag");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "texture3d.vert");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "texture3d.frag");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "color.vert");
+        FileMgr.copyAsset(this, getFilesDir().getPath(), "color.frag");
+
+        // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.png");
+        // FileMgr.copyAsset(this, getCacheDir().getPath(), "sonic2.obj");
+        // FileMgr.copyAsset(this, getCacheDir().getPath(), "cube.obj");
+        //FileMgr.copyAsset(this, getCacheDir().getPath(), "uvtemplate.png");
+    }
+
+
 
     /////
     /**
@@ -178,13 +226,23 @@ public class MainActivity extends Activity{ //AppCompatActivity {  //If extended
    // public static native void on_surface_changed(int width, int height);
 
     //public static native void on_draw_frame();
-
+    int touchBeginX = 0;
+    int touchBeginY = 0;
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet;
     public static native void on_surface_created();
     public static native void on_surface_changed(int width, int height);
 
     public static native void on_draw_frame();
+
+    public static native void rotateCameraAroundAxis(int distance);
+
+    public static native float getAngleX();
+    public static native float getAngleY();
+
+    public static native void setAngleX(float angle);
+    public static native void setAngleY(float angle);
+
 
     public static native void setAppPath(String path);
     // Used to load the 'native-lib' library on application startup.

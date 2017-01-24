@@ -1,4 +1,8 @@
 void on_surface_created();
 void on_surface_changed(int width, int height);
 void on_draw_frame();
-
+void rotateCameraAroundAxis(int distance);
+void setAxisAngleX(float angle);
+void setAxisAngleY(float angle);
+float getAxisAngleX();
+float getAxisAngleY();

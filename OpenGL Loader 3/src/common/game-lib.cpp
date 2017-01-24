@@ -27,3 +27,43 @@ JNIEXPORT void JNICALL Java_com_example_xxx_myopenglportandroid_MainActivity_set
     const char* appPath = env->GetStringUTFChars(path,0);
     ResourceUtils::setPathForSpecifiedResource(appPath);
 }
+
+extern "C"
+JNIEXPORT void JNICALL Java_com_example_xxx_myopenglportandroid_MainActivity_rotateCameraAroundAxis
+        (JNIEnv * env, jclass cls, jint distance) {
+
+    rotateCameraAroundAxis(distance);
+}
+
+extern "C"
+JNIEXPORT float JNICALL Java_com_example_xxx_myopenglportandroid_MainActivity_getAngleX
+        (JNIEnv * env, jclass cls) {
+
+   return getAxisAngleX();
+
+}
+
+extern "C"
+JNIEXPORT float JNICALL Java_com_example_xxx_myopenglportandroid_MainActivity_getAngleY
+        (JNIEnv * env, jclass cls) {
+
+    return getAxisAngleY();
+
+}
+
+extern "C"
+JNIEXPORT void JNICALL Java_com_example_xxx_myopenglportandroid_MainActivity_setAngleX
+        (JNIEnv * env, jclass cls, float angle) {
+
+     setAxisAngleX(angle);
+
+}
+
+extern "C"
+JNIEXPORT void JNICALL Java_com_example_xxx_myopenglportandroid_MainActivity_setAngleY
+        (JNIEnv * env, jclass cls, float angle) {
+
+    setAxisAngleY(angle);
+
+}
+
