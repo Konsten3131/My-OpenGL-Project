@@ -91,7 +91,7 @@ public:
     void DrawQuad2D(GLuint texturehandle);
     void DrawGround(Matrix* pMVP);
     void DrawPyramid(Matrix* pMVP);
-    void DrawCube(Matrix* pMVP);
+    void Draw3DModel(Matrix* pMVP);
 
     void SwitchView();
     void RotateCameraAroundAxis(float angle);

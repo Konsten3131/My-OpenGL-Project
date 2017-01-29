@@ -357,34 +357,6 @@ void GameCore::Tick(double TimePassed)
     //if( g_KeyStates['P'] == true )
         m_TimeInGame += (float)TimePassed;
 
-  //  float speed = 1;
-
-    //if( g_KeyStates['R'] == true )
-    //    m_CameraPos.y += (float)TimePassed * speed;
-
-   // if( g_KeyStates['F'] == true )
-      //  m_CameraPos.y -= (float)TimePassed * speed;
-
-    //if( g_KeyStates['Q'] == true )
-       // m_CameraPos.x -= (float)TimePassed * speed;
-
-    //if( g_KeyStates['E'] == true )
-       // m_CameraPos.x += (float)TimePassed * speed;
-
-   // if( g_KeyStates['Z'] == true )
-        //m_CameraPos.z -= (float)TimePassed * speed;
-
-    //if( g_KeyStates['X'] == true )
-        //m_CameraPos.z += (float)TimePassed * speed;
-
-    //if( g_KeyStates['W'] == true )
-       // m_ObjectPos.z += (float)TimePassed * speed;
-    //if( g_KeyStates['S'] == true )
-      //  m_ObjectPos.z -= (float)TimePassed * speed;
-   // if( g_KeyStates['A'] == true )
-      //  m_ObjectPos.x -= (float)TimePassed * speed;
-   // if( g_KeyStates['D'] == true )
-     //   m_ObjectPos.x += (float)TimePassed * speed;
 }
 
 void GameCore::OnSurfaceChanged(unsigned int width, unsigned int height)
@@ -425,7 +397,7 @@ void GameCore::OnDrawFrame()
         case 1:
         {
            // glViewport( m_WindowWidth/2, m_WindowHeight/2, m_WindowWidth/2, m_WindowHeight/2 );
-            
+        
             DrawQuad2D( m_TextureBGFront );
             
             Matrix cam;     //cam pos              camera up vec     lokking at
@@ -515,7 +487,7 @@ void GameCore::DrawScene(Matrix* pCameraMatrix)
       //  DrawPyramid( &mvp );
     }
 
-    // draw even smaller pyramid rotating around previous pyramid on z plane
+    // draw 3D Model
     {
 
         mvp.SetIdentity();
@@ -529,7 +501,7 @@ void GameCore::DrawScene(Matrix* pCameraMatrix)
         mvp.Multiply( pCameraMatrix );
         mvp.Multiply( &m_MatrixPerspective );
 
-       DrawCube( &mvp );
+       Draw3DModel( &mvp );
     }
 
     // draw upside down pyramid bobbing up and down
@@ -668,7 +640,7 @@ void GameCore::DrawPyramid(Matrix* pMVP)
     glDisableVertexAttribArray( aColor );
 }
 
- void GameCore::DrawCube(Matrix* pMVP)
+ void GameCore::Draw3DModel(Matrix* pMVP)
 {
     // start using the program
     //glUseProgram( m_pShaderColor->m_Program );
