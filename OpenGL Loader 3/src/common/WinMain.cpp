@@ -14,8 +14,13 @@ int g_WindowHeight = 0;
 bool g_KeyStates[256];
 bool g_WindowIsActive = true;
 bool g_FullscreenMode = true;
+bool m_mouseLBPressed = false;
+POINT m_prevPoind;
+
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+void UpdateArcBallCamPos();
 
 GLvoid ResizeGLScene(GLsizei width, GLsizei height)
 {
@@ -283,6 +288,19 @@ LRESULT CALLBACK WndProc(HWND hWnd,       // Handle For This Window
             ResizeGLScene( LOWORD(lParam), HIWORD(lParam) );
             return 0;
         }
+            
+        case WM_LBUTTONDOWN:
+        {
+            GetCursorPos(&m_prevPoind);
+            m_mouseLBPressed = true;
+            return 0;
+        }
+            
+        case WM_LBUTTONUP:
+        {
+            m_mouseLBPressed = false;
+            return 0;
+        }
     }
 	
     // Pass all unhandled messages to DefWindowProc
@@ -346,6 +364,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
                 {
                     pGameCore->Tick( timepassed );
                     pGameCore->OnDrawFrame();
+                    UpdateArcBallCamPos();
 
                     SwapBuffers( hDeviceContext );
                 }
@@ -359,3 +378,42 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     return msg.wParam;
 }
+
+void UpdateArcBallCamPos()
+{
+    if (m_mouseLBPressed)
+    {
+        POINT currentpos;
+        GetCursorPos(&currentpos);
+        float x = currentpos.x - m_prevPoind.x;
+        float y = currentpos.y - m_prevPoind.y;
+        // NSLog(@"My location x is %f \n",location.x);
+        
+        float distanceX = sqrt(x*x);
+        float distanceY = sqrt(y*y);
+        
+        ////////////this code is fore view where we rotate just around y axis//////////
+        if (x >= 0)
+												g_pGameCore->RotateCameraAroundAxis(-distanceX);
+        else
+												g_pGameCore->RotateCameraAroundAxis(distanceX);
+        ///////////////////////////////////////////////////////////////////////////////
+        
+        distanceX /= 100.0f; //deviding by 100 simply to slowdown user input rotation
+        distanceY /= 100.0f;
+        
+        if (x >= 0)
+												g_pGameCore->m_yAxisAngle += distanceX; //when we slide horizontally we expect object to rotate arount its x axis
+        else
+												g_pGameCore->m_yAxisAngle -= distanceX;
+        
+        if (y >= 0)
+												g_pGameCore->m_xAxisAngle += distanceY;
+        else
+												g_pGameCore->m_xAxisAngle -= distanceY;
+        
+        m_prevPoind = currentpos;
+        
+    }
+}
+

@@ -5,11 +5,11 @@
 
 #define SAFE_DELETE(x) { if(x) delete x; x=0; }
 
-#ifdef __ANDROID__
+#if defined(__ANDROID__)
 #include "glwrapperAndroid.h"
-#elif __APPLE__
+#elif defined(__APPLE__)
 #include "glwrapper.h"
-#elif defined(_WIN32) || defined(WIN32)
+#elif defined (_WIN32) || defined(WIN32)
 #include <windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>

@@ -375,7 +375,7 @@ void GameCore::OnDrawFrame()
     // clear the screen.
     glClearColor( 0.0f, 0.0f, 0.8f, 0.0f );
     
-	#ifdef defined(_WIN32) || defined(WIN32)
+	#if defined(_WIN32) || defined(WIN32)
     glClearDepth( 1 );
     #else
     glClearDepthf( 1.0f );
