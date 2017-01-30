@@ -1,6 +1,7 @@
 #ifndef __ShaderProgram_H__
 #define __ShaderProgram_H__
-#include "glwrapper.h"
+
+#include "CommonHeader.h"
 
 class ShaderProgram
 {

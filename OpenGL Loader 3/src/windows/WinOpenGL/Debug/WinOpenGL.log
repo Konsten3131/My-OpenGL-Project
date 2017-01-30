@@ -1,0 +1,17 @@
+﻿Build started 1/29/2017 8:35:46 PM.
+     1>Project "C:\Users\xXx\Desktop\OpenGL Loader 3\src\windows\WinOpenGL\WinOpenGL.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\WinOpenGL.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         WinOpenGL.vcxproj -> C:\Users\xXx\Desktop\OpenGL Loader 3\src\windows\Debug\WinOpenGL.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\WinOpenGL.tlog\unsuccessfulbuild".
+         Touching "Debug\WinOpenGL.tlog\WinOpenGL.lastbuildstate".
+     1>Done Building Project "C:\Users\xXx\Desktop\OpenGL Loader 3\src\windows\WinOpenGL\WinOpenGL.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.05

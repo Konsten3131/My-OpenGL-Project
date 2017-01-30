@@ -1,4 +1,8 @@
 #include "CommonHeader.h"
+#include "ResourceUtils.h"
+
+#define HEIGHT 768
+#define WIDTH 1024
 
 HGLRC hRenderingContext = 0;
 HDC hDeviceContext = 0;
@@ -294,7 +298,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         g_KeyStates[i] = false;
 	
     // Create Our OpenGL Window
-    if( !CreateGLWindow( "OpenGL Window", SCREEN_WIDTH, SCREEN_HEIGHT, 32, 31, 1, false ) )
+	if (!CreateGLWindow("OpenGL Window", WIDTH, HEIGHT, 32, 31, 1, false))
     {
         return 0;
     }
@@ -305,9 +309,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Create and initialize our GameCore object.
     GameCore* pGameCore = new GameCore;
     g_pGameCore = pGameCore;
-
+	ResourceUtils::setPathForSpecifiedResource("../../common/assets");
     pGameCore->OneTimeInit();
-    pGameCore->OnSurfaceChanged( SCREEN_WIDTH, SCREEN_HEIGHT );
+	pGameCore->OnSurfaceChanged(WIDTH, HEIGHT);
 
     double lasttime = MyGetSystemTime();
 

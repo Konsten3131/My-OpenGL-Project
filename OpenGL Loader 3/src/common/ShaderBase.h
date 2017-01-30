@@ -1,11 +1,8 @@
 #ifndef __ShaderBase_H__
 #define __ShaderBase_H__
 
-#ifdef __ANDROID__
-#include "glwrapperAndroid.h"
-#elif __APPLE__
-#include "glwrapper.h"
-#endif
+#include "CommonHeader.h"
+
 
 class ShaderBase
 {

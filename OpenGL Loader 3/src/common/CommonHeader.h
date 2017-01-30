@@ -5,10 +5,20 @@
 
 #define SAFE_DELETE(x) { if(x) delete x; x=0; }
 
+#ifdef __ANDROID__
+#include "glwrapperAndroid.h"
+#elif __APPLE__
+#include "glwrapper.h"
+#elif defined(_WIN32) || defined(WIN32)
+#include <windows.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
+#include "../windows/GL/GLExtensions.h"
+#endif
+
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
-
 #include "LodePNG/lodepng.h"
 
 #include "Vector.h"
@@ -19,11 +29,4 @@
 #include "FrameBuffer.h"
 
 #include "GameCore.h"
-
-#ifdef __ANDROID__
-#include "glwrapperAndroid.h"
-#elif __APPLE__
-#include "glwrapper.h"
-#endif
-
 #endif //__CommonHeader_H__
