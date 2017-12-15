@@ -1,11 +1,12 @@
 //http://kitsunegames.com/post/archived/2014/12/12/cross-platform-glsl-shaders-opengl-gl-eswebgl-tutorial/
 
-#ifdef GL_ES
-
-#else
-#version 110
+#ifndef highp
 #define highp
+#endif
+#ifndef mediump
 #define mediump
+#endif
+#ifndef lowp
 #define lowp
 #endif
 
